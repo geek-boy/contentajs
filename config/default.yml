@@ -1,0 +1,89 @@
+# This is the default configuration file for the project. This configuration is
+# used in any environment unless specifically overridden.
+# DO NOT CHANGE THIS FILE. Instead create a new configuration file that holds
+# the overwrites as explained in https://www.npmjs.com/package/config.
+
+cms:
+  # Add the URL including the protocol to your Contenta CMS installation.
+  # Example: https://www.example.com
+  host: http://localhost
+  # Options for the HTTP client created in helpers/got.js. This uses core's
+  # agent https://nodejs.org/api/http.html#http_class_http_agent. These options
+  # will be used both for HTTP and HTTPS.
+  httpAgent:
+    # It is a good idea to keep the connection alive between the proxy an the
+    # CMS for performance reasons.
+    keepAlive: true
+
+# The HTTP client. Use this client to make any kind of HTTP requests.
+got:
+  # These options will be used both for HTTP and HTTPS.
+  httpAgent:
+    # It may not be a good option to keep the connection alive since got is used
+    # to make HTTP connections to arbitrary hosts. Like to a weather API.
+    keepAlive: true
+  # All responses gotten via 'got' will be cached locally based on the
+  # Cache-Control headers in the response. This will allow to avoid unnecessary
+  # requests and to leverage ETags.
+  applicationCache:
+    activePlugin: lru
+    plugins:
+      lru:
+        max: 524288
+      # Select nullStore as your cache store to avoid caching completely. This
+      # is useful during development.
+      nullStore: {}
+
+# These settings will determine the TTL for edge cache.
+cache:
+  max-age:
+    # Cache OPTIONS responses for one day.
+    OPTIONS: 86400
+    # The value to use for all GET requests unless otherwise specified.
+    default: 900
+    # Add sub-routes here to override the defaults
+    # articles: 420
+    # node--volatiles: 60
+
+timeout:
+  # Time in milliseconds before worker processes are forcefully killed when the
+  # master process receives a SIGINT.
+  killTimeout: 10000
+  # The time in milliseconds to allow before a request is considered timed out
+  # and the client connection severed. Timeouts can be per version and per entity
+  # type.
+  requestTimeout:
+    default: 12000
+    defaultListing: 12000
+  # The time in milliseconds to set the retry-after header value to in the event
+  # of a request timeout.
+  retryAfter: 1200
+
+# This object is passed verbatim to the
+# https://www.npmjs.com/package/cors#configuration-options module.
+cors:
+  # Avoid using '*'. See https://www.moesif.com/blog/technical/cors/Authoritative-Guide-to-CORS-Cross-Origin-Resource-Sharing-for-REST-APIs/
+  origin:
+    - http://localhost:3000
+    - https://localhost:3443
+  allowedHeaders:
+    - 'Accept'
+    - 'Authorization'
+    - 'Cache-Control'
+    - 'Content-Length'
+    - 'Content-Type'
+    - 'Keep-Alive'
+    - 'Origin'
+    - 'User-Agent'
+    - 'X-Forwarded-For'
+    - 'X-Forwarded-Port'
+    - 'X-Forwarded-Proto'
+    - 'X-HTTP-Method-Override'
+    - 'X-Requested-With'
+  maxAge: 86400 # One day.
+
+subrequests:
+  # The path where the request aggregator lives.
+  path: /subrequests
+  # You can set this to 'multipart' as well.
+  responseMerger: json

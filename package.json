@@ -1,0 +1,112 @@
+{
+  "name": "@contentacms/contentajs",
+  "version": "0.0.0-development",
+  "description": "A nodejs server that proxies to Contenta CMS and holds custom code.",
+  "main": "lib/server.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/contentacms/contentajs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/contentacms/contentajs/issues"
+  },
+  "homepage": "https://github.com/contentacms/contentajs#readme",
+  "author": "Mateu Aguiló Bosch <mateu.aguilo.bosch@gmail.com> (e0ipso)",
+  "license": "MIT",
+  "private": false,
+  "engines": {
+    "node": ">=8.10"
+  },
+  "scripts": {
+    "start": "npm run build && node ./node_modules/.bin/pm2 start --name contentajs --env production",
+    "stop": "node ./node_modules/.bin/pm2 stop contentajs",
+    "delete": "node ./node_modules/.bin/pm2 delete contentajs",
+    "debug": "DEBUG=*,-babel node ./node_modules/.bin/babel-node --inspect-brk ./src/server.js",
+    "test": "NODE_ENV=test jest --coverage",
+    "test-ci": "NODE_ENV=test jest --coverage --ci --runInBand",
+    "debug-test": "npm run build && NODE_ENV=test node --inspect-brk ./node_modules/.bin/jest --runInBand",
+    "documentation": "emdaer --yes && git add *.md",
+    "prepare": "npm run build",
+    "flow": "flow status",
+    "build": "./node_modules/.bin/babel src -d lib --copy-files --delete-dir-on-start && npm run client_build",
+    "client_copy": "cd client && ./node_modules/.bin/copyfiles -V build/*/static/* ../lib",
+    "client_build": "cd client && yarn build && ./node_modules/.bin/copyfiles build/* build/static/*/* ../lib",
+    "prettier": "prettier --write './**/*.js' && eslint './**/*.js' --fix",
+    "lint": "eslint .",
+    "lint-json": "eslint --format=json . > ./__coverage__/eslint.json",
+    "semantic-release": "semantic-release"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.5",
+    "@babel/node": "^7.4.5",
+    "@babel/plugin-proposal-object-rest-spread": "^7.4.4",
+    "@babel/preset-env": "^7.4.5",
+    "@babel/preset-flow": "^7.0.0",
+    "@commitlint/cli": "^6.2.0",
+    "@commitlint/config-angular": "^6.1.3",
+    "@emdaer/cli": "^3.2.4",
+    "@emdaer/plugin-contributors-details-github": "^3.2.4",
+    "@emdaer/plugin-image": "^3.2.4",
+    "@emdaer/plugin-import": "^3.2.4",
+    "@emdaer/plugin-license-reference": "^3.2.4",
+    "@emdaer/plugin-shields": "^3.2.4",
+    "@emdaer/plugin-value-from-package": "^3.2.4",
+    "@emdaer/transform-prettier": "^3.2.4",
+    "@emdaer/transform-table-of-contents": "^3.2.4",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-eslint": "^10.0.2",
+    "babel-jest": "^23.6.0",
+    "eslint": "^5.16.0",
+    "eslint-config-prettier": "^3.6.0",
+    "eslint-config-problems": "^1.1.0",
+    "eslint-plugin-babel": "^5.3.0",
+    "eslint-plugin-better": "^0.1.5",
+    "eslint-plugin-flowtype": "^3.10.3",
+    "eslint-plugin-jest": "^21.27.2",
+    "eslint-plugin-prettier": "^3.1.0",
+    "flow-bin": "^0.85.0",
+    "husky": "^1.3.1",
+    "jest": "^23.6.0",
+    "jest-express": "^1.10.1",
+    "lint-staged": "^8.2.1",
+    "prettier": "^1.18.2",
+    "semantic-release": "^15.13.16",
+    "semantic-release-conventional-commits": "^2.0.1"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "config": "^1.30.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-http-proxy": "^1.5.1",
+    "got": "^8.3.1",
+    "http-errors": "^1.7.2",
+    "jsonrpc-lite": "^1.3.1",
+    "keyv": "^3.0.0",
+    "keyv-lru": "^2.1.0",
+    "keyv-null": "^1.0.0",
+    "lodash": "^4.17.10",
+    "pino": "^4.16.1",
+    "pm2": "^3.5.1",
+    "subrequests": "^2.16.1",
+    "subrequests-express": "^3.2.0",
+    "subrequests-json-merger": "^1.13.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "release": {
+    "analyzeCommits": "semantic-release-conventional-commits"
+  },
+  "directories": {
+    "doc": "docs",
+    "lib": "lib"
+  },
+  "keywords": [
+    "Contenta",
+    "proxy",
+    "CMS",
+    "headless"
+  ]
+}

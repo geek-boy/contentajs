@@ -38,3 +38,7 @@ __coverage__
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+/client_clean_react
+/client_contenta_react
+/client_material_ui

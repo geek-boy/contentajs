@@ -31,6 +31,8 @@
     "build": "./node_modules/.bin/babel src -d lib --copy-files --delete-dir-on-start && npm run client_build",
     "client_copy": "cd client && ./node_modules/.bin/copyfiles build/* build/static/*/* ../lib",
     "client_build": "cd client && yarn build && ./node_modules/.bin/copyfiles build/* build/static/*/* ../lib",
+    "client_material_ui_copy": "cd client_material_ui && ./node_modules/.bin/copyfiles build/* build/static/*/* ../lib",
+    "client_material_ui_build": "cd client_material_ui && yarn build && npm run client_material_ui_copy",
     "prettier": "prettier --write './**/*.js' && eslint './**/*.js' --fix",
     "lint": "eslint .",
     "lint-json": "eslint --format=json . > ./__coverage__/eslint.json",

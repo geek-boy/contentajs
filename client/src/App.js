@@ -3,10 +3,11 @@ import App from 'base-shell/lib'
 import MUIConfig from 'material-ui-shell/lib'
 import merge from 'base-shell/lib/utils/config'
 import _config from './config'
+import "./App.css"
 
 const config = merge(MUIConfig, _config)
 
-export default class Demo extends Component {
+export default class ContentaClient extends Component {
   render() {
     return <App config={config} />
   }

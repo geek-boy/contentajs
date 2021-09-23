@@ -68,7 +68,7 @@ module.exports = (req: Request, res: Response, next: NextFunction): void => {
     },
   };
 
-  process.stdout.write("req.cmsHost: " + req.cmsHost + "\n"); 
+  process.stdout.write("proxyHandler req.cmsHost: " + req.cmsHost + "\n"); 
 
   return proxy(req.cmsHost, options)(req, res, next);
 };

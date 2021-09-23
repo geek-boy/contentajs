@@ -33,7 +33,8 @@ module.exports = async (cmsMeta: Object) => {
   const jsonApiPaths = JSON.parse(_.get(cmsMeta, 'jsonApiPaths', '[]'));
   const cmsHost = config.get('cms.host');
   
-  process.stdout.write("cmsHost: " + cmsHost + "\n"); 
+  process.stdout.write("app.js jsonApiPrefix: " + jsonApiPrefix + "\n"); 
+  process.stdout.write("app.js cmsHost: " + cmsHost + "\n"); 
 
   // Set the global agent options
   const agentOptions = config.util.toObject(config.get('cms.httpAgent'));

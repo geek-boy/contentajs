@@ -1,24 +1,32 @@
 import Page from 'material-ui-shell/lib/containers/Page'
-import React from 'react'
+import React, { useState } from 'react'
 import Scrollbar from 'material-ui-shell/lib/components/Scrollbar/Scrollbar'
 import { useIntl } from 'react-intl'
 import Button from '@material-ui/core/Button';
 
-// class App extends Component {
-
 const HomePage = () => {
+  const [api_data, setState] = useState(null);
+
   const intl = useIntl(),
-  callAPIMenu = async () => {
+  callHello = async () => {
     const response = await fetch('/hello');
-    // const body = await response.json();
-console.log("OH Hello!")
-console.log(response.body)
+    const body = response.json();
 
     if (response.status !== 200) {
-      // throw Error(body.message) 
+      throw Error(body.message) 
     }
-    // return body;
-    return response
+
+    return body
+  },
+  callAPIMenu = async () => {
+    const response = await fetch('/api/menus/6f0ae6f2-f8f1-4cef-8836-59821cd8d0a7');
+    const body = response.json();
+
+    if (response.status !== 200) {
+      throw Error(body.message) 
+    }
+
+    return body
   }
 
   return (
@@ -29,30 +37,41 @@ console.log(response.body)
         {intl.formatMessage({ id: 'home' })}
         <Button variant="contained" color="primary" onClick={
           () => {
-            // callAPIMenu()
-            // .then(res => {
-            //   var today = new Date();
-            //   var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-            //   var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-            //   var dateTime = date+'_'+time;
-            
-            //   // this.setState({ data:'Menu id 0 ' + res.data[0]['id'] + ' at ' + dateTime })
-            // })
-            // .catch(err => console.log(err));
+            callAPIMenu().
+            then(res => {
+              console.log("callAPIMenu")
+              console.log(res.data)
+               var today = new Date();
+              var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+              var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+              var dateTime = date+'_'+time;
 
-            // fetch('/hello')
-            fetch('/api/menus/6f0ae6f2-f8f1-4cef-8836-59821cd8d0a7')
-              .then(function(response) {
-                // The response is a Response instance.
-                // You parse the data into a useable format using `.json()`
-                return response.json();
-              }).then(function(data) {
-                // `data` is the parsed version of the JSON returned from the above endpoint.
-                console.log(data);  // { "userId": 1, "id": 1, "title": "...", "body": "..." }
-              });
+              setState(res.data.id + ' at ' + dateTime)
+
+            })
+            .catch(err => console.log(err));
             }
           }
           >Get Menus</Button>
+
+          <Button variant="contained" color="secondary" onClick={
+          () => {
+            callHello()
+            .then(res => {
+             
+            console.log(res.express)
+            setState(res.express)
+            // this.setState({ data:'Menu id 0 ' + res.data[0]['id'] + ' at ' + dateTime })
+            })
+            .catch(err => console.log(err));
+
+          }
+          }
+          >Call API</Button>
+                  <p>{
+                  api_data
+                  }</p>
+
       </Scrollbar>
 
     </Page>

@@ -16,7 +16,7 @@ const LandingPage = () => {
         flexDirection: 'column',
       }}
     >
-      <h2>Landing Page</h2>
+      <h2>Contenta Client</h2>
 
       <div>
         <Link to="/home">Home</Link>

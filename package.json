@@ -19,7 +19,7 @@
   },
   "scripts": {
     "start": "npm run build && node ./node_modules/.bin/pm2 start --name contentajs --env production",
-    "stop": "node ./node_modules/.bin/pm2 stop contentajs",
+    "stop": "node ./node_modules/.bin/pm2 stop all",
     "delete": "node ./node_modules/.bin/pm2 delete contentajs",
     "debug": "DEBUG=*,-babel node ./node_modules/.bin/babel-node --inspect-brk ./src/server.js",
     "test": "NODE_ENV=test jest --coverage",

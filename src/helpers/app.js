@@ -51,7 +51,9 @@ module.exports = async (cmsMeta: Object) => {
   // Initialize the request object with valuable information.
   app.use(copyToRequestObject({ jsonApiPrefix, jsonApiPaths, cmsHost }));
 
-  app.use(express.static(path.join(__dirname, "..", "build")));
+  // Used to access and render React App
+  // app.use(express.static(path.join(__dirname, "..", "build")));
+  app.use(express.static(path.join(__dirname, "../..", "client/build")));
 
   // Healthcheck is a special endpoint used for application monitoring.
   app.get('/healthcheck', healthcheck);

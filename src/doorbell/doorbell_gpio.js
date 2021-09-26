@@ -8,8 +8,8 @@ const DoorBellController = require('./doorbell_controller');
 // const Gpio = require('onoff').Gpio;
 
 // We only need one Daemon monitoring to play sounds
-const doorbellController = DoorBellController.getInstance();
-doorbellController.awaitButtonPush();
+// const doorbellController = DoorBellController.getInstance();
+// doorbellController.awaitButtonPush();
 
 class DoorBellBtn {
 // extends Gpio{
@@ -30,6 +30,10 @@ class DoorBellBtn {
 
     //         doorbelld.ringDoorbell();
     //     });
+    // }
+
+    // test_ring() {
+    //     return doorbellController.ping();
     // }
 }
 

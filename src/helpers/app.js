@@ -18,11 +18,13 @@ const copyToRequestObject = require('../middlewares/copyToRequestObject');
 const errorHandler = require('../middlewares/errorHandler');
 const healthcheck = require('../routes/healthcheck');
 const hello = require('../routes/hello');
+const doorbell_route = require('../routes/doorbell');
 const jsonrpcProxy = require('../routes/jsonrpcProxy');
 const proxyHandler = require('../routes/proxyHandler');
 const { initSubrequests } = require('../routes/subrequests');
 
-const DoorBell = require('../doorbell/doorbell_init');
+// const DoorBellInit = require('../doorbell/doorbell_init');
+const DoorBellController = require('../doorbell/doorbell_controller');
 
 
 module.exports = async (cmsMeta: Object) => {
@@ -64,6 +66,10 @@ module.exports = async (cmsMeta: Object) => {
   // Response from Server with date/time
   app.get('/hello', hello);
 
+  // Response from Server for doorbell with date/time
+  app.get('/doorbell', doorbell_route);
+
+
   // Set cache control header.
   app.use(cacheControl);
 
@@ -79,7 +85,9 @@ module.exports = async (cmsMeta: Object) => {
   // catch them here to allow the app to continue normally.
   app.use(errorHandler);
 
-  const doorbell = new DoorBell();
+  const doorbell_controller = DoorBellController.getInstance();
+  doorbell_controller.awaitButtonPush()
+  app.set('doorbell',doorbell_controller)
 
   return app;
 };

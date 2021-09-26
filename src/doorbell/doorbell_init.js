@@ -27,6 +27,10 @@ class DoorBellInit {
         debug("DoorBellInit constructructed!")
         console.log("DoorBellInit constructructed!")
     }
+
+    test_ring() {
+        return this.doorbell_btn1.test_ring() + " for Pin " + bellInputPin1
+    }
 }
 
 module.exports = DoorBellInit

@@ -27,6 +27,16 @@ const HomePage = () => {
     }
 
     return body
+  },
+  testDoorbell = async () => {
+    const response = await fetch('/doorbell');
+    const body = response.json();
+
+    if (response.status !== 200) {
+      throw Error(body.message) 
+    }
+
+    return body
   }
 
   return (
@@ -68,9 +78,22 @@ const HomePage = () => {
           }
           }
           >Call API</Button>
-                  <p>{
-                  api_data
-                  }</p>
+
+          <Button variant="contained" color="secondary" onClick={
+              () => {
+                testDoorbell()
+                .then(res => {                
+                  console.log(res.doorbell)
+                  setState(res.doorbell)
+                })
+                .catch(err => console.log(err));
+              }
+          }
+          >Test Doorbell</Button>
+
+          <p>{
+            api_data
+          }</p>
 
       </Scrollbar>
 

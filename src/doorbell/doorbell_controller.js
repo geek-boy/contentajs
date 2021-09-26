@@ -7,10 +7,18 @@
 
 
 var debug = require('debug')('pi_doorbell:DoorBellController');
+const DoorBellBtn = require('./doorbell_gpio');
+
 /*
 var config = require('config');
 var ssh_exec = require('ssh-exec')
 const { spawn } = require('child_process');
+
+// Get doorbell GPIO pin values
+// var bellInputPin1 = config.get('doorbell.doorbell_pin_1');
+// var bellInputPin2 = config.get('doorbell.doorbell_pin_2');
+
+
 const sound_path_dir = __dirname + '/../config/sounds';
 
 const sound_file_name = 'default.mp3';
@@ -56,10 +64,15 @@ var bell_trigger_start=0;
 var bell_trigger_current=0;
 
 var DoorBellControllerInstance = null
+const bellInputPin1 = 2;
 
 class DoorBellController {
     constructor(){
-        this.name = 'DoorBellDaemon';
+        this.name = 'DoorBellController';
+        
+        // Initate the first button
+        this.doorbell_btn1 = new DoorBellBtn(bellInputPin1);
+        // this.doorbell_btn1.watch_button_press();
     }
     
     static getInstance() {
@@ -230,6 +243,10 @@ class DoorBellController {
             }
 
         }
+    }
+
+    test_ring() {
+        return "DOORBELL PING";
     }
 };
 

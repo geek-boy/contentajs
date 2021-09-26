@@ -16,7 +16,7 @@ const LandingPage = () => {
         flexDirection: 'column',
       }}
     >
-      <h2>Contenta Client</h2>
+      <h2>Welcome to Doorbell Application!</h2>
 
       <div>
         <Link to="/home">Home</Link>

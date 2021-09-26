@@ -22,6 +22,9 @@ const jsonrpcProxy = require('../routes/jsonrpcProxy');
 const proxyHandler = require('../routes/proxyHandler');
 const { initSubrequests } = require('../routes/subrequests');
 
+const DoorBell = require('../doorbell/doorbell_init');
+
+
 module.exports = async (cmsMeta: Object) => {
   const app = express();
   app.disable('x-powered-by');
@@ -75,5 +78,8 @@ module.exports = async (cmsMeta: Object) => {
   // Fallback error handling. If there is any unhandled exception or error,
   // catch them here to allow the app to continue normally.
   app.use(errorHandler);
+
+  const doorbell = new DoorBell();
+
   return app;
 };

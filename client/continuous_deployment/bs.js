@@ -1,8 +1,8 @@
 // To run this script use this command
 // node bs.js yourBSUserName yourBSKey
 
-var webdriver = require('selenium-webdriver')
-var test = require('./bs_test.js')
+var webdriver = require('selenium-webdriver');
+var test = require('./bs_test.js');
 
 // Input capabilities
 var iPhone = {
@@ -12,7 +12,7 @@ var iPhone = {
   os_version: '10.3',
   'browserstack.user': process.argv[2],
   'browserstack.key': process.argv[3],
-}
+};
 
 var android = {
   browserName: 'android',
@@ -21,7 +21,7 @@ var android = {
   os_version: '7.0',
   'browserstack.user': process.argv[2],
   'browserstack.key': process.argv[3],
-}
+};
 
 var desktopFF = {
   browserName: 'Firefox',
@@ -31,7 +31,7 @@ var desktopFF = {
   resolution: '1024x768',
   'browserstack.user': process.argv[2],
   'browserstack.key': process.argv[3],
-}
+};
 
 var desktopEdge = {
   browserName: 'Edge',
@@ -41,7 +41,7 @@ var desktopEdge = {
   resolution: '1024x768',
   'browserstack.user': process.argv[2],
   'browserstack.key': process.argv[3],
-}
+};
 
 var desktopIE = {
   browserName: 'Chrome',
@@ -51,7 +51,7 @@ var desktopIE = {
   resolution: '1024x768',
   'browserstack.user': process.argv[2],
   'browserstack.key': process.argv[3],
-}
+};
 
 /*
 var iPhoneDriver = new webdriver.Builder()
@@ -69,20 +69,20 @@ var androidDriver = new webdriver.Builder()
 var desktopFFDriver = new webdriver.Builder()
   .usingServer('http://hub-cloud.browserstack.com/wd/hub')
   .withCapabilities(desktopFF)
-  .build()
+  .build();
 
 var desktopEdgeDriver = new webdriver.Builder()
   .usingServer('http://hub-cloud.browserstack.com/wd/hub')
   .withCapabilities(desktopEdge)
-  .build()
+  .build();
 
 var desktopIEDriver = new webdriver.Builder()
   .usingServer('http://hub-cloud.browserstack.com/wd/hub')
   .withCapabilities(desktopIE)
-  .build()
+  .build();
 
 //test.runTest(iPhoneDriver)
 //test.runTest(androidDriver)
-test.runTest(desktopFFDriver)
-test.runTest(desktopEdgeDriver)
-test.runTest(desktopIEDriver)
+test.runTest(desktopFFDriver);
+test.runTest(desktopEdgeDriver);
+test.runTest(desktopIEDriver);

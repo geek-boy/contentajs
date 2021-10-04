@@ -5,3 +5,5 @@ __coverage__
 scratch
 lib
 flow-typed
+client/build
+client_works

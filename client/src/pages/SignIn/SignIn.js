@@ -72,7 +72,6 @@ const SignIn = () => {
 
   const authenticate = async (user) => {  
     const credentials = {name: user.email, pass: user.password}
-    console.log(credentials)
 
     const response = await fetch('/signin', {
       method: 'POST',

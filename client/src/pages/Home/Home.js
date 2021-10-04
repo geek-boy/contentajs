@@ -47,10 +47,8 @@ const HomePage = () => {
         {intl.formatMessage({ id: 'home' })}
         <Button variant="contained" color="primary" onClick={
           () => {
-            callAPIMenu().
-            then(res => {
-              console.log("callAPIMenu")
-              console.log(res.data)
+            callAPIMenu()
+            .then(res => {
                var today = new Date();
               var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
               var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
@@ -68,22 +66,18 @@ const HomePage = () => {
           () => {
             callHello()
             .then(res => {
-             
-            console.log(res.express)
-            setState(res.express)
-            // this.setState({ data:'Menu id 0 ' + res.data[0]['id'] + ' at ' + dateTime })
+                         setState(res.express)
             })
             .catch(err => console.log(err));
 
           }
           }
-          >Call API</Button>
+          >Ping Express</Button>
 
           <Button variant="contained" color="secondary" onClick={
               () => {
                 testDoorbell()
                 .then(res => {                
-                  console.log(res.doorbell)
                   setState(res.doorbell)
                 })
                 .catch(err => console.log(err));

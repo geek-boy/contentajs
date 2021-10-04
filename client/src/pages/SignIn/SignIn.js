@@ -56,6 +56,8 @@ const SignIn = () => {
   const history = useHistory()
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [login_result, setLoginResult] = useState('Enter your login details');
+
   const { toggleThis } = useMenu()
   const { setAuth } = useAuth()
 
@@ -63,11 +65,31 @@ const SignIn = () => {
     event.preventDefault()
     authenticate({
       displayName: 'User',
-      email: username,
+      email: username,  // it seems the React code needs "email" to display username
+      password: password
     })
   }
 
-  const authenticate = (user) => {
+  const authenticate = async (user) => {  
+    const credentials = {name: user.email, pass: user.password}
+    console.log(credentials)
+
+    const response = await fetch('/signin', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(credentials),
+    })
+
+    const body = await response.json();
+
+    if (response.status !== 200) {
+      setLoginResult(body.message)
+      return 
+    }
+
+    // Credentials have been passed at Drupal CMS
     setAuth({ isAuthenticated: true, ...user })
     toggleThis('isAuthMenuOpen', false)
 
@@ -79,7 +101,9 @@ const SignIn = () => {
       history.push(_route)
     } else {
       history.push(_route)
-    }
+    }  
+
+    return body
   }
 
   return (
@@ -134,13 +158,19 @@ const SignIn = () => {
               width: '100%',
               justifyContent: 'space-between',
             }}
+
           >
+            <div>
+              <p>{login_result}</p>
+            </div>
+            <div>
             <Link to="/password_reset">
               {intl.formatMessage({ id: 'forgot_password' })}?
             </Link>
             <Link to="/signup">
               {intl.formatMessage({ id: 'registration' })}
             </Link>
+            </div>
           </div>
         </div>
       </Paper>

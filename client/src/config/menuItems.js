@@ -68,16 +68,13 @@ const getMenuItems = (props) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'X-CSRF-Token' : log_out_creds.csrf_token
       },
       body: JSON.stringify(log_out_creds),
     })
 
-    const body = await response.json();
-
-    // console.log(response.status);
-
     if (response.status !== 204) {
-      return 
+      throw Error("Incorrect Response for logout: code " + response.status) 
     }
     
   }

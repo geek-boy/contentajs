@@ -60,6 +60,28 @@ const getMenuItems = (props) => {
 
   const isAuthorised = auth.isAuthenticated
 
+  const logoutOfDrupal = async () => {
+    // console.log(auth);
+    const log_out_creds = {csrf_token: auth.csrf_token, logout_token: auth.logout_token}
+
+    const response = await fetch('/signout', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(log_out_creds),
+    })
+
+    const body = await response.json();
+
+    // console.log(response.status);
+
+    if (response.status !== 204) {
+      return 
+    }
+    
+  }
+
   const themeItems = allThemes.map((t) => {
     return {
       value: undefined,
@@ -85,9 +107,11 @@ const getMenuItems = (props) => {
       {
         value: '/signin',
         onClick: isAuthorised
-          ? () => {
-              setAuth({ isAuthenticated: false })
-            }
+          ? 
+          () => {
+            logoutOfDrupal()
+            setAuth({ isAuthenticated: false })
+          }
           : () => {},
         visible: true,
         primaryText: isAuthorised

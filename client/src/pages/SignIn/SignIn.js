@@ -10,6 +10,7 @@ import { useAuth } from 'base-shell/lib/providers/Auth'
 import { useHistory } from 'react-router-dom'
 import { useIntl } from 'react-intl'
 import { useMenu } from 'material-ui-shell/lib/providers/Menu'
+import locale from 'base-shell/lib/utils/locale'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -89,7 +90,13 @@ const SignIn = () => {
     }
 
     // Credentials have been passed at Drupal CMS
-    setAuth({ isAuthenticated: true, ...user })
+    setAuth({ isAuthenticated: true,
+      displayName: user.displayName,
+      email: user.email,
+      csrf_token:body.csrf_token,
+      logout_token:body.logout_token
+    });
+
     toggleThis('isAuthMenuOpen', false)
 
     let _location = history.location
@@ -152,7 +159,7 @@ const SignIn = () => {
 
           <div
             style={{
-              display: 'flex',
+              // display: 'flex',
               flexDirection: 'row',
               width: '100%',
               justifyContent: 'space-between',
@@ -163,12 +170,14 @@ const SignIn = () => {
               <p>{login_result}</p>
             </div>
             <div>
-            <Link to="/password_reset">
+
+            {/* <Link to="/password_reset">
               {intl.formatMessage({ id: 'forgot_password' })}?
             </Link>
             <Link to="/signup">
               {intl.formatMessage({ id: 'registration' })}
-            </Link>
+            </Link> */}
+
             </div>
           </div>
         </div>

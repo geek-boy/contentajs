@@ -24,6 +24,7 @@ const doorbell_route = require('../routes/doorbell');
 const jsonrpcProxy = require('../routes/jsonrpcProxy');
 const proxyHandler = require('../routes/proxyHandler');
 const loginProxy = require('../routes/loginProxy');
+const logoutProxy = require('../routes/logoutProxy');
 const { initSubrequests } = require('../routes/subrequests');
 const DoorBellController = require('../doorbell/doorbell_controller');
 
@@ -76,6 +77,10 @@ module.exports = async (cmsMeta: Object) => {
 
   // Proxy for the User Login to server in Contenta CMS.
   app.use('/signin',loginProxy)
+  
+  // Proxy for the User Logout to server in Contenta CMS.
+  app.use(express.json());
+  app.use('/signout',logoutProxy)
 
   // Forward JSON RPC requests to the CMS.
   app.use('/jsonrpc', jsonrpcProxy);

@@ -25,6 +25,7 @@ const MyAccount = () => {
     displayName: currentDisplayName = '',
     email = '',
   } = auth || {}
+  
   const [displayName, setDisplayName] = useState(currentDisplayName)
   const [photoURL, setPhotoURL] = useState(currentPhoroURL)
   const [isImageDialogOpen, setImageDialogOpen] = useState(false)
